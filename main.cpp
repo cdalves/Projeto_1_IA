@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cstdio>
+#include <cstdlib>
 
 using namespace std;
 
@@ -20,14 +21,21 @@ int main(){
     {
         while (!feof(arquivo))
         {
-            fgets(o,500 , arquivo);
-            a.push_back(o);            
+            fgets(o,500, arquivo);
+            a.push_back(o);
+           
         }
+        m = stoi(a[0]);
+        n = stoi(a[1]);
+
+
     
     for(int x= 0; x <= a.size(); x++){
-        cout<<a[x];
+        cout<<a[x]<< endl;
     }
-        
+        cout << m << endl;
+        cout << n << endl;
+
         
     }
     
