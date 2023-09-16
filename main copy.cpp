@@ -1,27 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <queue>
+#include <unordered_map>
 
-
-//#include "largura.h"
+#include "largura.h"
 
 using namespace std;
-
-bool busca(int valor, vector<int> lista) {
-    for (int i = 0; i < lista.size(); i++) {
-        if (lista[i] == valor) {
-            return true;
-        }
-    }
-    return false; 
-}
 
 
 int main() {
     ifstream arquivo("grafo.txt"); // Substitua "seuarquivo.txt" pelo nome do seu arquivo
     int m = 0, n = 0, objetivo;
-    int inicial, linha = 1 , numero;
+    int atual, inicial, linha = 1 , numero;
     vector<vector<int>> grafo;
     
 
@@ -57,20 +47,16 @@ int main() {
     arquivo.close();
   
 
-   
+    cout<< m << endl;
+    cout<< n << endl;
 
     // Imprimir os grafo de três números restantes
-    /*cout<< m << endl;
-    cout<< n << endl;
     for (size_t i = 0; i < grafo.size(); i++) {
         for (size_t j = 0; j < grafo[i].size(); j++) {
             cout << " " << grafo[i][j];
         }
       cout << std::endl;
-    }*/
-
-
-    
+    }
     cout<< "Digite o valor do estado inicial\n";
 	    cin >> inicial;
 	system("cls");
@@ -81,47 +67,49 @@ int main() {
     
     
 /////////////////////////////////////////////////////////////////
-    int pai [m];
+    vector <int> pai;
     queue <int> fila;
-    fila.push(inicial);
-    pai[inicial] = -1;
-    vector <int> visitados(m,0);
+    
+   fila.push(inicial);
+   cout<< "work";
+   pai[inicial] = inicial;
     
    
 
-    while (!fila.empty()) {
+   while(true){
     int atual = fila.front();
     fila.pop();
 
-    if (atual == objetivo) {
-        vector<int> caminho;
+    if(atual == objetivo){
+        vector <int> caminho, filhos;
 
-        while (atual != -1) { // A raiz do caminho será -1.
+        while(atual!= inicial){
             caminho.push_back(atual);
             atual = pai[atual];
         }
+        caminho.push_back(inicial);
 
-        cout << "Caminho de " << inicial << " para " << objetivo << ": ";
-        for (int i = caminho.size() - 1; i >= 0; i--) {
+        cout<< "caminho de " << inicial << " para " << objetivo << " : ";
+        for(int i = caminho.size()-1; i>= 0; i++){
             cout << caminho[i];
-            if (i != 0)
-                cout << " -> ";
+            if(i != 0 )
+                cout<< " -> ";
         }
         cout << endl;
-        return 0;
+        
     }
+    
     for (int i = 0; i < grafo.size(); i++) {
-        if (grafo[i][0] == atual && visitados[grafo[i][1]] == 0) {
-            // Se o valor não estiver em visitados, adicione-o e atualize o pai.
-            visitados[grafo[i][1]] = 1;
-            fila.push(grafo[i][1]);
-            pai[grafo[i][1]] = atual; // Atualize o pai do nó visitado.
-            
-        }
+        if(grafo[i][0] == atual){
+                fila.push(grafo[i][1]);
+                cout << grafo[i][1];
+            }
     }
-}
+    
 
-cout << "Nao foi encontrado um caminho de " << inicial << " para " << objetivo << endl;
+
+   }
+             
 
 return 0;
 }
