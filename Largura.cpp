@@ -111,11 +111,11 @@ int main() {
         return 0;
     }
     for (int i = 0; i < grafo.size(); i++) {
-        if (grafo[i][0] == atual && visitados[grafo[i][1]] == 0) {
-            // Se o valor não estiver em visitados, adicione-o e atualize o pai.
+        if (grafo[i][0] == atual && visitados[grafo[i][1]] == 0) {         // Se o valor não estiver em visitados, adicione-o e atualize o pai.
             visitados[grafo[i][1]] = 1;
             fila.push(grafo[i][1]);
             pai[grafo[i][1]] = atual; // Atualize o pai do nó visitado.
+            cout << fila.back();
             
         }
     }
