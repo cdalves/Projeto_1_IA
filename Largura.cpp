@@ -4,7 +4,6 @@
 #include <queue>
 
 
-//#include "largura.h"
 
 using namespace std;
 
@@ -41,17 +40,12 @@ int main() {
             else if(n == 0){ // salva o numero de arestas
                  n = numero;
             }
-            else if (linha < 2) {
-                // Armazenar os dois primeiros números em uma linha separada
-                grafo.push_back({numero});
-            } else {
-                // Armazenar os números restantes em grafo de três
-                if (grafo.empty() || grafo.back().size() == 3) {
+            else if (grafo.empty() || grafo.back().size() == 3) {
                     grafo.push_back({numero});
                 } else {
                     grafo.back().push_back(numero);
                 }
-            }
+            
             linha++;
         }
     arquivo.close();
@@ -60,14 +54,14 @@ int main() {
    
 
     // Imprimir os grafo de três números restantes
-    cout<< m << endl;
+   /* cout<< m << endl;
     cout<< n << endl;
     for (size_t i = 0; i < grafo.size(); i++) {
         for (size_t j = 0; j < grafo[i].size(); j++) {
             cout << " " << grafo[i][j];
         }
       cout << std::endl;
-    }
+    }*/
 
     
     cout<< "Digite o valor do estado inicial\n";
@@ -110,11 +104,10 @@ int main() {
         return 0;
     }
     for (int i = 0; i < grafo.size(); i++) {
-        if (grafo[i][0] == atual && visitados[grafo[i][1]] == 0) {         // Se o valor não estiver em visitados, adicione-o e atualize o pai.
+        if (grafo[i][0] == atual && !busca(grafo[i][1], visitados)) {         // Se o valor não estiver em visitados, adicione-o e atualize o pai.
             fila.push(grafo[i][1]);
             pai[grafo[i][1]] = atual; // Atualize o pai do nó visitado.
-            //cout << fila.back();
-            cout << grafo.size();
+            visitados[atual] = atual;
             
         }
     }
