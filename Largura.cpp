@@ -55,14 +55,14 @@ int main() {
    
 
     // Imprimir os grafo de três números restantes
-    cout<< m << endl;
+   /* cout<< m << endl;
     cout<< n << endl;
     for (size_t i = 0; i < grafo.size(); i++) {
         for (size_t j = 0; j < grafo[i].size(); j++) {
             cout << " " << grafo[i][j];
         }
       cout << std::endl;
-    }
+    }*/
 
     
     cout<< "Digite o valor do estado inicial\n";
