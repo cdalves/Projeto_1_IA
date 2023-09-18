@@ -83,7 +83,7 @@ int main() {
         }
     }
 
-    cout << "Não foi encontrado um caminho de " << inicial << " para " << objetivo << endl;
+    cout << "Nao foi encontrado um caminho de " << inicial << " para " << objetivo << endl;
 
     return 0;
 }

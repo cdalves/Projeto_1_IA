@@ -60,15 +60,14 @@ int main() {
    
 
     // Imprimir os grafo de três números restantes
-    /*cout<< m << endl;
+    cout<< m << endl;
     cout<< n << endl;
     for (size_t i = 0; i < grafo.size(); i++) {
         for (size_t j = 0; j < grafo[i].size(); j++) {
             cout << " " << grafo[i][j];
         }
       cout << std::endl;
-    }*/
-
+    }
 
     
     cout<< "Digite o valor do estado inicial\n";
@@ -112,10 +111,10 @@ int main() {
     }
     for (int i = 0; i < grafo.size(); i++) {
         if (grafo[i][0] == atual && visitados[grafo[i][1]] == 0) {         // Se o valor não estiver em visitados, adicione-o e atualize o pai.
-            visitados[grafo[i][1]] = 1;
             fila.push(grafo[i][1]);
             pai[grafo[i][1]] = atual; // Atualize o pai do nó visitado.
-            cout << fila.back();
+            //cout << fila.back();
+            cout << grafo.size();
             
         }
     }
