@@ -1,8 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <queue>
-#include <algorithm>
+#include <stack>
 
 using namespace std;
 
@@ -12,14 +11,14 @@ bool busca(int valor, vector<int> lista) {
             return true;
         }
     }
-    return false;
+    return false; 
 }
 
 int main() {
     ifstream arquivo("grafo.txt");
     int m = 0, n = 0, objetivo;
-    int inicial, numero;
-    vector<vector<int>> listadj;
+    int inicial, linha = 1, numero;
+    vector<vector<int>> grafo;
 
     if (!arquivo.is_open()) {
         cerr << "Erro ao abrir o arquivo." << endl;
@@ -28,52 +27,42 @@ int main() {
 
     while (arquivo >> numero) {
         if (m == 0) {
-            m = numero; // Number of nodes
+            m = numero;
         } else if (n == 0) {
-            n = numero; // Number of edges
-        } else if (listadj.empty() || listadj.back().size() == 3) {
-            listadj.push_back({numero});
+            n = numero;
+        } else if (linha < 2) {
+            grafo.push_back({numero});
         } else {
-            listadj.back().push_back(numero);
+            if (grafo.empty() || grafo.back().size() == 3) {
+                grafo.push_back({numero});
+            } else {
+                grafo.back().push_back(numero);
+            }
         }
+        linha++;
     }
     arquivo.close();
 
-    // Create an adjacency matrix
-    vector<vector<int>> grafo(m + 1, vector<int>(m + 1, 0));
-
-    for (int i = 0; i < listadj.size(); i++) {
-        grafo[listadj[i][0]][listadj[i][1]] = listadj[i][2];
-        grafo[listadj[i][1]][listadj[i][0]] = listadj[i][2]; // Assuming an undirected graph
-    }
-
-    // Print the adjacency matrix
-    cout << "Adjacency Matrix:" << endl;
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= m; j++) {
-            cout << " " << grafo[i][j];
-        }
-        cout << endl;
-    }
-
-    cout << "Digite o valor do estado inicial:" << endl;
+    cout << "Digite o valor do estado inicial\n";
     cin >> inicial;
-    cout << "Digite o valor do estado objetivo:" << endl;
+    system("cls");
+    cout << "Digite o valor do estado objetivo\n";
     cin >> objetivo;
+    system("cls");
 
-    int pai[m + 1];
-    queue<int> avisitar;
-    avisitar.push(inicial);
-    pai[inicial] = -1;
-    vector<int> visitados(m + 1, 0);
 
-    while (!avisitar.empty()) {
-        int atual = avisitar.front();
-        avisitar.pop();
+/////////////////////////////////////////////////////////////////////////////
+
+    vector<int> pai(m, -1);
+    stack<int> pilha;
+    pilha.push(inicial);
+
+    while (!pilha.empty()) {
+        int atual = pilha.top();
+        pilha.pop();
 
         if (atual == objetivo) {
             vector<int> caminho;
-
             while (atual != -1) {
                 caminho.push_back(atual);
                 atual = pai[atual];
@@ -89,11 +78,11 @@ int main() {
             return 0;
         }
 
-        for (int i = 1; i <= m; i++) {
-            if (grafo[atual][i] != 0 && visitados[i] == 0) {
-                avisitar.push(i);
-                pai[i] = atual;
-                visitados[i] = 1;
+        for (int i = 0; i < grafo.size(); i++) {
+            if (grafo[i][0] == atual && pai[grafo[i][1]] == -1) {
+                pai[grafo[i][1]] = atual;
+                pilha.push(grafo[i][1]);
+                cout << pilha.top();
             }
         }
     }

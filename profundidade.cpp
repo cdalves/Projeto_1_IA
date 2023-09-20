@@ -15,79 +15,94 @@ bool busca(int valor, vector<int> lista) {
 }
 
 int main() {
-    ifstream arquivo("grafo.txt");
-    int m = 0, n = 0, objetivo;
-    int inicial, linha = 1, numero;
-    vector<vector<int>> grafo;
-
-    if (!arquivo.is_open()) {
+    ifstream arquivo("grafo.txt"); // Substitua "seuarquivo.txt" pelo nome do seu arquivo
+    int m = 0 , n=0 , objetivo;
+    int inicial, numero;
+    vector<vector<int>> listadj;  
+  
+    if(!arquivo.is_open()) {
         cerr << "Erro ao abrir o arquivo." << endl;
         return 1;
     }
-
+   
     while (arquivo >> numero) {
-        if (m == 0) {
+        if(m == 0){ // salva o numero de nós
             m = numero;
-        } else if (n == 0) {
-            n = numero;
-        } else if (linha < 2) {
-            grafo.push_back({numero});
-        } else {
-            if (grafo.empty() || grafo.back().size() == 3) {
-                grafo.push_back({numero});
-            } else {
-                grafo.back().push_back(numero);
+        }   
+            else if(n == 0){ // salva o numero de arestas
+                 n = numero;
             }
-        }
-        linha++;
+            else if (listadj.empty() || listadj.back().size() == 3) {
+                    listadj.push_back({numero});
+                    
+                }else {
+                listadj.back().push_back(numero);
+            }
+         
     }
     arquivo.close();
+ 
+    int grafo[m+1][m+1] = {0};
 
-    cout << "Digite o valor do estado inicial\n";
-    cin >> inicial;
-    system("cls");
-    cout << "Digite o valor do estado objetivo\n";
-    cin >> objetivo;
-    system("cls");
+    for(int i = 0; i < listadj.size(); i++) {
+            grafo[listadj[i][0]][listadj[i][1]] = listadj[i][2];
+    }   
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-    vector<int> pai(m, -1);
-    stack<int> pilha;
-    pilha.push(inicial);
-
-    while (!pilha.empty()) {
-        int atual = pilha.top();
-        pilha.pop();
-
-        if (atual == objetivo) {
-            vector<int> caminho;
-            while (atual != -1) {
-                caminho.push_back(atual);
-                atual = pai[atual];
-            }
-
-            cout << "Caminho de " << inicial << " para " << objetivo << ": ";
-            for (int i = caminho.size() - 1; i >= 0; i--) {
-                cout << caminho[i];
-                if (i != 0)
-                    cout << " -> ";
-            }
-            cout << endl;
-            return 0;
+    // Imprimir os grafo de três números restantes
+    cout<< m << endl;
+    cout<< n << endl;
+    for (int i = 1; i < m+1 ; i++) {
+        for (int j = 1; j < m+1; j++) {
+            cout << " " << grafo[i][j]; 
         }
-
-        for (int i = 0; i < grafo.size(); i++) {
-            if (grafo[i][0] == atual && pai[grafo[i][1]] == -1) {
-                pai[grafo[i][1]] = atual;
-                pilha.push(grafo[i][1]);
-                cout << pilha.top();
-            }
-        }
+      cout << endl;
     }
 
-    cout << "Nao foi encontrado um caminho de " << inicial << " para " << objetivo << endl;
+    cout<< "Digite o valor do estado inicial\n";
+	    cin >> inicial;
+	cout<< "Digite o valor do estado objetivo\n";
+	    cin >> objetivo;
+    cin.ignore();
+    
+////////////////////////////////////////////////////////////////
 
-    return 0;
+    vector <int> pai(m,-1);
+    stack <int> avisitar;
+    avisitar.push(inicial);
+      
+
+    while (!avisitar.empty()) {
+    int atual = avisitar.top();
+    avisitar.pop();
+
+    if (atual == objetivo) {
+        vector<int> caminho;
+
+        while (atual != -1) { // A raiz do caminho será -1.
+            caminho.push_back(atual);
+            atual = pai[atual];
+        }
+
+        cout << "Caminho de " << inicial << " para " << objetivo << ": ";
+        for (int i = caminho.size() - 1; i >= 0; i--) {
+            cout << caminho[i];
+            if (i != 0)
+                cout << " -> ";
+        }
+        cout << endl;
+        return 0;
+    }
+
+    for (int i = 1; i <= m; i++) {
+            if (grafo[atual][i] != 0 && pai[i] == -1) {
+                pai[i] = atual;
+                avisitar.push(i);
+                cout << "Visitando o nó: " << i << endl;
+            }
+        }
+}
+
+cout << "Nao foi encontrado um caminho de " << inicial << " para " << objetivo << endl;
+ 
+return 0;
 }

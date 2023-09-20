@@ -2,9 +2,6 @@
 #include <fstream>
 #include <vector>
 #include <queue>
-#include <algorithm>
-
-
 
 using namespace std;
 
@@ -17,15 +14,12 @@ bool busca(int valor, vector<int> lista) {
     return false; 
 }
 
-
 int main() {
     ifstream arquivo("grafo.txt"); // Substitua "seuarquivo.txt" pelo nome do seu arquivo
     int m = 0 , n=0 , objetivo;
     int inicial, numero;
     vector<vector<int>> listadj;  
-    
-    
-    
+  
     if(!arquivo.is_open()) {
         cerr << "Erro ao abrir o arquivo." << endl;
         return 1;
@@ -70,10 +64,8 @@ int main() {
 	    cin >> objetivo;
     cin.ignore();
     
-
-    
-  
 ////////////////////////////////////////////////////////////////
+
     int pai [m];
     queue <int> avisitar;
     avisitar.push(inicial);
