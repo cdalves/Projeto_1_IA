@@ -5,14 +5,6 @@
 
 using namespace std;
 
-bool busca(int valor, vector<int> lista) {
-    for (int i = 0; i < lista.size(); i++) {
-        if (lista[i] == valor) {
-            return true;
-        }
-    }
-    return false; 
-}
 
 int main() {
     ifstream arquivo("grafo.txt"); // Substitua "seuarquivo.txt" pelo nome do seu arquivo
@@ -66,7 +58,7 @@ int main() {
     
 ////////////////////////////////////////////////////////////////
 
-    int pai [m];
+    vector <int> pai(m,-1);
     queue <int> avisitar;
     avisitar.push(inicial);
     pai[inicial] = -1;
@@ -96,9 +88,10 @@ int main() {
     }
 
     for (int i = 1; i <= m; i++) {
-            if (grafo[atual][i] != 0 && !busca(grafo[atual][i], visitados)) {
+            if (grafo[atual][i] != 0 && pai[i] == -1) {
                 avisitar.push(i);
-                pai[i] = atual;
+                pai[i] = atual;                
+                cout << "Visitando o no: " << avisitar.front() << endl;
             }
         }
 }
