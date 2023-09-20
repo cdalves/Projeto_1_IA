@@ -5,14 +5,7 @@
 
 using namespace std;
 
-bool busca(int valor, vector<int> lista) {
-    for (int i = 0; i < lista.size(); i++) {
-        if (lista[i] == valor) {
-            return true;
-        }
-    }
-    return false; 
-}
+// Busca em Profundidade
 
 int main() {
     ifstream arquivo("grafo.txt"); // Substitua "seuarquivo.txt" pelo nome do seu arquivo
