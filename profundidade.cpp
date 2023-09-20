@@ -50,6 +50,9 @@ int main() {
     cin >> objetivo;
     system("cls");
 
+
+/////////////////////////////////////////////////////////////////////////////
+
     vector<int> pai(m, -1);
     stack<int> pilha;
     pilha.push(inicial);
@@ -79,6 +82,7 @@ int main() {
             if (grafo[i][0] == atual && pai[grafo[i][1]] == -1) {
                 pai[grafo[i][1]] = atual;
                 pilha.push(grafo[i][1]);
+                cout << pilha.top();
             }
         }
     }
