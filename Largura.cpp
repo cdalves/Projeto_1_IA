@@ -66,7 +66,7 @@ int main() {
     queue <int> avisitar;
     avisitar.push(inicial);
     pai[inicial] = -1;
-    vector <int> visitados(m,0), vizinhos;
+    vector <int> visitados(m,0);
       
 
     while (!avisitar.empty()) {

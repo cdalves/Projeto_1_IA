@@ -71,7 +71,7 @@ int main() {
 ///////////////////// Busca Uniforme /////////////////////////
 
     int pai [m];
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> avisitar;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> avisitar; //cria uma estrutura com o custo e o no filho e retorna o maior valor
     avisitar.push({0, inicial});
     pai[inicial] = -1;
     vector<int> visitados(m,0), vizinhos;
@@ -89,21 +89,21 @@ int main() {
                 atual.second = pai[atual.second];
             }
 
-            cout << "Caminho de " << inicial << " para " << objetivo << ": ";
+            cout << "Caminho de " << inicial << " para " << objetivo << ": "; // imprime o caminho percorrido
             for (int i = caminho.size() - 1; i >= 0; i--) {
                 cout << caminho[i];
                 if (i != 0)
                     cout << " -> ";
             }
             cout << endl;
-            cout << "Custo total do percurso: "<< custofinal << endl;
+            cout << "Custo total do percurso: "<< custofinal << endl; // imprime o custo final
             return 0;
         }
 
-        for (int i = 1; i <= m; i++) {
+        for (int i = 1; i <= m; i++) { //percorre a matriz de adjacencia 
             if (grafo[atual.second][i] != 0 && !busca(i, visitados)) {
-                avisitar.push({atual.first + grafo[atual.second][i], i});
-                pai[i] = atual.second;
+                avisitar.push({atual.first + grafo[atual.second][i], i}); // adiociona os custos e os vizinhos no a visitar
+                pai[i] = atual.second; //adiciona o valor do filho no valor do indice corepondente ao pai
                 cout << "Visitando o no: " << i << ", custo: " << atual.first + grafo[atual.second][i] << endl;
                 visitados.push_back(i);
             }
