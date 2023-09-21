@@ -60,7 +60,7 @@ int main() {
 	    cin >> objetivo;
     cin.ignore();
     
-/////////////////////  algotitimo de busca em largura  ///////////////////////////////////////////
+/////////////////////  algotitimo de busca em largura  /////////////////////
 
     vector <int> pai(m,-1);
     queue <int> avisitar;

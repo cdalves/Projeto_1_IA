@@ -82,6 +82,7 @@ int main() {
 
         if (atual.second == objetivo) {
             vector<int> caminho;
+            int custofinal = atual.first;
 
             while (atual.second != -1) { // cria a caminho ate chegar ao objetivo
                 caminho.push_back(atual.second);
@@ -95,6 +96,7 @@ int main() {
                     cout << " -> ";
             }
             cout << endl;
+            cout << "Custo total do percurso: "<< custofinal << endl;
             return 0;
         }
 
