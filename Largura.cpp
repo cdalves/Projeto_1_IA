@@ -95,7 +95,7 @@ int main() {
             if (grafo[atual][i] != 0 && pai[i] == -1) {
                 avisitar.push(i);
                 pai[i] = atual;                
-                cout << "Visitando o no: " << avisitar.front() << endl;
+                cout << "Visitando o no: " << i << endl;
             }
         }
 }
